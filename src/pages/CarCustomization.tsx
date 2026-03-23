@@ -115,9 +115,11 @@ const CarCustomization = () => {
         </div>
       </section>
 
-      {/* Categories — Alternating feature layout */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Categories — Sticky Sidebar + Scrolling Panels */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(219,36,36,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(219,36,36,0.5) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-16">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Full Spectrum</p>
@@ -126,33 +128,61 @@ const CarCustomization = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto">
-            {categories.map((cat, i) => (
-              <ScrollReveal key={cat.title} delay={i * 0.05}>
-                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                  {/* Top accent */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
-                        <cat.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <h3 className="font-display text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{cat.title}</h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{cat.description}</p>
-                    <div className="grid grid-cols-1 gap-1.5">
-                      {cat.items.map(item => (
-                        <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <ChevronRight className="w-3 h-3 text-primary/60 shrink-0" />
-                          {item}
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Sticky sidebar — category index */}
+            <div className="lg:col-span-4 xl:col-span-3">
+              <div className="lg:sticky lg:top-24">
+                <ScrollReveal>
+                  <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 mb-6">
+                    <h3 className="font-display text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">Categories</h3>
+                    <div className="space-y-1">
+                      {categories.map((cat, i) => (
+                        <div key={cat.title} className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-primary/5 transition-colors duration-200 cursor-default">
+                          <cat.icon className="w-4 h-4 text-primary/60 shrink-0" />
+                          <span className="text-sm text-muted-foreground">{cat.title}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-5">
+                    <span className="font-display text-4xl font-bold text-primary">{categories.length}</span>
+                    <p className="text-xs text-muted-foreground mt-1">Customization categories covering every aspect of your vehicle</p>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+
+            {/* Main content panels */}
+            <div className="lg:col-span-8 xl:col-span-9 space-y-6">
+              {categories.map((cat, i) => (
+                <ScrollReveal key={cat.title} delay={0.05}>
+                  <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.12)]">
+                    {/* Image placeholder banner for each category */}
+                    <div className="relative h-[160px] bg-gradient-to-r from-primary/6 via-card/80 to-card/40 border-b border-border/30 overflow-hidden">
+                      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_right,rgba(219,36,36,0.08),transparent_60%)]" />
+                      <div className="absolute top-4 right-5 font-display text-6xl font-bold text-primary/5 select-none">{String(i + 1).padStart(2, '0')}</div>
+                      <div className="absolute bottom-4 left-6 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-background/60 backdrop-blur-sm border border-border/50 flex items-center justify-center">
+                          <cat.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <h3 className="font-display text-lg font-semibold text-foreground">{cat.title}</h3>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-5">{cat.description}</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {cat.items.map(item => (
+                          <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground bg-card/50 px-3 py-2 rounded-lg border border-border/30">
+                            <ChevronRight className="w-3 h-3 text-primary/60 shrink-0" />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

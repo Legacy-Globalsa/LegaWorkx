@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import Grainient from "@/components/Grainient";
+import Hyperspeed from "@/components/Hyperspeed";
 import { Car, DollarSign, ArrowLeftRight, Globe, CreditCard, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -68,9 +69,11 @@ const CarSales = () => {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Services — Top 3 Featured + Bottom Row */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(219,36,36,0.04),transparent)]" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">What We Offer</p>
@@ -79,18 +82,42 @@ const CarSales = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-            {services.map((service, i) => (
-              <ScrollReveal key={service.title} delay={i * 0.05}>
-                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 h-full overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Top 3 featured — large gradient cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-6">
+            {services.slice(0, 3).map((service, i) => (
+              <ScrollReveal key={service.title} delay={i * 0.1}>
+                <div className="group relative rounded-2xl overflow-hidden h-full transition-all duration-500 hover:shadow-[0_0_50px_-5px_rgba(219,36,36,0.2)]">
+                  {/* Gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-card/90 to-card border border-primary/10 rounded-2xl" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(219,36,36,0.08),transparent_50%)]" />
+                  <div className="relative p-7 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="w-14 h-14 rounded-2xl bg-primary/15 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300">
+                        <service.icon className="w-7 h-7 text-primary" />
+                      </div>
+                      <span className="font-display text-4xl font-bold text-primary/10">{String(i + 1).padStart(2, '0')}</span>
+                    </div>
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">{service.description}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Bottom 4 — 2x2 compact grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-6xl mx-auto">
+            {services.slice(3).map((service, i) => (
+              <ScrollReveal key={service.title} delay={i * 0.06}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl p-5 h-full overflow-hidden transition-all duration-500 hover:border-primary/30">
+                  <div className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-b from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="flex gap-4 items-start">
-                    <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
-                      <service.icon className="w-6 h-6 text-primary" />
+                    <div className="shrink-0 w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
+                      <service.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-display text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                      <h3 className="font-display text-sm font-semibold text-foreground mb-1.5 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{service.description}</p>
                     </div>
                   </div>
                 </div>
@@ -100,10 +127,47 @@ const CarSales = () => {
         </div>
       </section>
 
-      {/* How It Works — Timeline style */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(219,36,36,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(219,36,36,0.3) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        <div className="container mx-auto px-4">
+      {/* How It Works — Hyperspeed Background */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0">
+          <Hyperspeed effectOptions={{
+            distortion: 'turbulentDistortion',
+            length: 400,
+            roadWidth: 10,
+            islandWidth: 2,
+            lanesPerRoad: 4,
+            fov: 90,
+            fovSpeedUp: 150,
+            speedUp: 2,
+            carLightsFade: 0.4,
+            totalSideLightSticks: 20,
+            lightPairsPerRoadWay: 40,
+            shoulderLinesWidthPercentage: 0.05,
+            brokenLinesWidthPercentage: 0.1,
+            brokenLinesLengthPercentage: 0.5,
+            lightStickWidth: [0.12, 0.5] as [number, number],
+            lightStickHeight: [1.3, 1.7] as [number, number],
+            movingAwaySpeed: [60, 80] as [number, number],
+            movingCloserSpeed: [-120, -160] as [number, number],
+            carLightsLength: [400 * 0.03, 400 * 0.2] as [number, number],
+            carLightsRadius: [0.05, 0.14] as [number, number],
+            carWidthPercentage: [0.3, 0.5] as [number, number],
+            carShiftX: [-0.8, 0.8] as [number, number],
+            carFloorSeparation: [0, 5] as [number, number],
+            colors: {
+              roadColor: 0x080808,
+              islandColor: 0x0a0a0a,
+              background: 0x000000,
+              shoulderLines: 0x131313,
+              brokenLines: 0x131313,
+              leftCars: [0xDB2424, 0x8B1515, 0xFF4444],
+              rightCars: [0xDB2424, 0x8B1515, 0xFF4444],
+              sticks: 0xDB2424,
+            },
+          }} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Simple Process</p>
@@ -115,7 +179,7 @@ const CarSales = () => {
             {steps.map((item, i) => (
               <ScrollReveal key={item.step} delay={i * 0.1}>
                 <div className="relative text-center group">
-                  <div className="inline-flex w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-300">
+                  <div className="inline-flex w-16 h-16 rounded-2xl bg-background/80 backdrop-blur-sm border border-primary/20 items-center justify-center mb-4 group-hover:border-primary/40 transition-all duration-300">
                     <span className="font-display text-2xl font-bold text-primary">{item.step}</span>
                   </div>
                   {i < 3 && (

@@ -82,52 +82,79 @@ const AITechnology = () => {
         </div>
       </section>
 
-      {/* Services — Image + alternating cards */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto items-start">
-            {/* Sticky image column */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24">
-              <ScrollReveal>
-                <div className="rounded-2xl overflow-hidden border border-border/50 shadow-2xl shadow-primary/5 mb-6">
-                  <img src={carDiagnostics} alt="AI Technology" className="w-full h-[280px] md:h-[360px] object-cover" />
-                </div>
-                <div className="bg-card/80 backdrop-blur-sm border border-border rounded-xl p-5">
-                  <h3 className="font-display text-sm font-semibold text-foreground mb-2">Why AI Matters</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Our AI systems process thousands of data points per second, detecting issues before they become problems and optimizing your vehicle's performance in real-time.
-                  </p>
-                </div>
-              </ScrollReveal>
+      {/* Services — Futuristic Dashboard Panels */}
+      <section className="py-20 relative">
+        {/* Grid background */}
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(219,36,36,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(219,36,36,0.5) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_80%_at_50%_20%,rgba(219,36,36,0.04),transparent)]" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal>
+            <div className="flex items-end justify-between mb-14 max-w-6xl mx-auto">
+              <div>
+                <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Our Solutions</p>
+                <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">Smart Services</h2>
+                <div className="gradient-line max-w-[120px]" />
+              </div>
+              <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground bg-card/60 border border-border rounded-lg px-3 py-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Systems Online</span>
+              </div>
             </div>
+          </ScrollReveal>
 
-            {/* Services list */}
-            <div className="lg:col-span-7 space-y-4">
-              <ScrollReveal>
-                <div className="mb-8">
-                  <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Our Solutions</p>
-                  <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">Smart Services</h2>
-                  <div className="gradient-line max-w-[120px]" />
+          {/* Hero diagnostic banner with image */}
+          <div className="max-w-6xl mx-auto mb-10">
+            <ScrollReveal>
+              <div className="relative rounded-2xl overflow-hidden border border-border/50">
+                <img src={carDiagnostics} alt="AI Technology" className="w-full h-[220px] md:h-[300px] object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(219,36,36,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(219,36,36,0.5) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+                <div className="absolute bottom-0 left-0 p-8 max-w-md">
+                  <h3 className="font-display text-xl font-bold text-foreground mb-2">AI Diagnostic Center</h3>
+                  <p className="text-sm text-muted-foreground">Real-time monitoring, predictive analytics, and intelligent automation powering the future of automotive care.</p>
                 </div>
-              </ScrollReveal>
+              </div>
+            </ScrollReveal>
+          </div>
 
-              {services.map((service, i) => (
+          {/* Dashboard grid — mixed panel sizes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            {services.map((service, i) => {
+              const isWide = i === 0 || i === 4;
+              return (
                 <ScrollReveal key={service.title} delay={i * 0.06}>
-                  <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl p-5 overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="flex gap-4 items-start">
-                      <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
-                        <service.icon className="w-6 h-6 text-primary" />
+                  <div className={`group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.15)] ${isWide ? 'md:col-span-2' : ''}`}>
+                    {/* Status bar */}
+                    <div className="flex items-center justify-between px-5 py-2.5 bg-card/60 border-b border-border/50">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-primary/60" />
+                        <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">Module {String(i + 1).padStart(2, '0')}</span>
                       </div>
-                      <div>
-                        <h3 className="font-display text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <span className="text-[10px] text-emerald-500/80 uppercase tracking-wider">Active</span>
+                    </div>
+                    <div className={`p-6 ${isWide ? 'md:flex md:gap-8 md:items-start' : ''}`}>
+                      <div className={isWide ? 'md:flex-1' : ''}>
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="shrink-0 w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
+                            <service.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <h3 className="font-display text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                        </div>
                         <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
                       </div>
+                      {isWide && (
+                        <div className="shrink-0 hidden md:block w-[180px] h-[120px] rounded-xl bg-gradient-to-br from-primary/5 via-card to-card/60 border border-border/30 flex items-center justify-center">
+                          <div className="w-full h-full flex items-center justify-center">
+                            <service.icon className="w-10 h-10 text-primary/15" />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </ScrollReveal>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>

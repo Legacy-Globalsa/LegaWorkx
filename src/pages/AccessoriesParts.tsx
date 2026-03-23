@@ -123,35 +123,108 @@ const AccessoriesParts = () => {
         </div>
       </section>
 
-      {/* Categories grid — masonry-inspired with varying heights */}
+      {/* Categories — Masonry Bento with Accent Divider */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <ScrollReveal>
-            <div className="text-center mb-14">
+            <div className="max-w-2xl mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Browse Categories</p>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">Parts & Accessories</h2>
-              <div className="gradient-line max-w-[120px] mx-auto" />
+              <div className="gradient-line max-w-[120px]" />
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {categories.map((cat, i) => (
-              <ScrollReveal key={cat.title} delay={i * 0.05}>
-                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                  {/* Colored top bar */}
-                  <div className="h-1 bg-gradient-to-r from-primary/60 via-primary/30 to-transparent" />
-
+          {/* Top row — featured card + 2 stacked */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 max-w-6xl mx-auto mb-6">
+            <div className="lg:col-span-3">
+              <ScrollReveal delay={0.05}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.15)]">
+                  <div className="relative h-[200px] bg-gradient-to-br from-primary/[0.08] via-card to-card/60 border-b border-border/30 overflow-hidden">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(219,36,36,0.1),transparent_50%)]" />
+                    <div className="absolute bottom-4 left-5 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-background/60 backdrop-blur-sm border border-border/50 flex items-center justify-center">
+                        {(() => { const Icon = categories[0].icon; return <Icon className="w-5 h-5 text-primary" />; })()}
+                      </div>
+                      <h3 className="font-display text-lg font-semibold text-foreground">{categories[0].title}</h3>
+                    </div>
+                    <div className="absolute top-4 right-5 text-[10px] text-muted-foreground bg-background/60 backdrop-blur-sm border border-border/50 px-2 py-0.5 rounded-full uppercase tracking-wider">{categories[0].items.length} items</div>
+                  </div>
                   <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{categories[0].description}</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {categories[0].items.map(item => (
+                        <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground bg-card/50 px-3 py-2 rounded-lg border border-border/30">
+                          <ChevronRight className="w-3 h-3 text-primary/60 shrink-0" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            <div className="lg:col-span-2 flex flex-col gap-6">
+              {categories.slice(1, 3).map((cat, i) => (
+                <ScrollReveal key={cat.title} delay={(i + 1) * 0.08}>
+                  <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden transition-all duration-500 hover:border-primary/30">
+                    <div className="p-5">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
+                          <cat.icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-display text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{cat.title}</h3>
+                          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{cat.items.length} items</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed mb-3">{cat.description}</p>
+                      <div className="space-y-1">
+                        {cat.items.slice(0, 3).map(item => (
+                          <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <ChevronRight className="w-3 h-3 text-primary/60 shrink-0" />
+                            {item}
+                          </div>
+                        ))}
+                        {cat.items.length > 3 && (
+                          <span className="text-[10px] text-primary/60">+{cat.items.length - 3} more</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Grainient accent divider */}
+          <div className="relative h-[80px] rounded-2xl overflow-hidden my-8 max-w-6xl mx-auto">
+            <div className="absolute inset-0">
+              <Grainient color1="#DB2424" color2="#0D0F11" color3="#6C707A" zoom={1.2} timeSpeed={0.1} />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+            <div className="relative z-10 flex items-center justify-center h-full">
+              <span className="text-xs text-muted-foreground uppercase tracking-[0.4em]">More Categories</span>
+            </div>
+          </div>
+
+          {/* Bottom row — 3 equal columns */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {categories.slice(3).map((cat, i) => (
+              <ScrollReveal key={cat.title} delay={i * 0.06}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
+                  <div className="h-0.5 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
                         <cat.icon className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-display text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{cat.title}</h3>
+                        <h3 className="font-display text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{cat.title}</h3>
                         <span className="text-[10px] text-muted-foreground uppercase tracking-wider">{cat.items.length} items</span>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{cat.description}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-3">{cat.description}</p>
                     <div className="space-y-1.5">
                       {cat.items.map(item => (
                         <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">

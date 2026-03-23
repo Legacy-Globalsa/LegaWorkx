@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import Grainient from "@/components/Grainient";
+import ShapeGrid from "@/components/ShapeGrid";
 import { LifeBuoy, Truck, Warehouse, Hammer, Crown, ClipboardCheck, Trophy, ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -62,47 +63,87 @@ const AdditionalServices = () => {
         </div>
       </section>
 
-      {/* Services — Mixed card sizes */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Highlighted Services — ShapeGrid Background */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <ShapeGrid
+            speed={0.5}
+            squareSize={40}
+            direction="diagonal"
+            borderColor="#271E37"
+            hoverFillColor="#222222"
+            shape="square"
+            hoverTrailAmount={0}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
+
+        <div className="relative z-10 container mx-auto px-4">
           <ScrollReveal>
-            <div className="text-center mb-14">
+            <div className="max-w-2xl mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Full Support</p>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">What We Cover</h2>
-              <div className="gradient-line max-w-[120px] mx-auto" />
+              <div className="gradient-line max-w-[120px]" />
             </div>
           </ScrollReveal>
 
-          <div className="max-w-5xl mx-auto space-y-5">
-            {services.map((service, i) => (
-              <ScrollReveal key={service.title} delay={i * 0.05}>
-                <div className={`group relative bg-card/80 backdrop-blur-sm border rounded-xl overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)] ${
-                  service.highlight
-                    ? "border-primary/20 hover:border-primary/40"
-                    : "border-border hover:border-primary/30"
-                }`}>
-                  {service.highlight && (
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
-                  )}
-
-                  <div className="p-6 flex gap-5 items-start">
-                    <div className={`shrink-0 w-14 h-14 rounded-xl border flex items-center justify-center transition-all duration-300 ${
-                      service.highlight
-                        ? "bg-primary/15 border-primary/30 group-hover:bg-primary/20"
-                        : "bg-primary/10 border-primary/20 group-hover:bg-primary/15"
-                    }`}>
+          {/* Highlighted services as glass cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {services.filter(s => s.highlight).map((service, i) => (
+              <ScrollReveal key={service.title} delay={i * 0.1}>
+                <div className="group relative bg-card/40 backdrop-blur-md border border-primary/20 rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/40 hover:bg-card/60 hover:shadow-[0_0_50px_-10px_rgba(219,36,36,0.25)]">
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-2 mb-6">
+                      <span className="text-[10px] uppercase tracking-widest text-primary bg-primary/10 backdrop-blur-sm px-2.5 py-1 rounded-full font-medium border border-primary/20">Popular</span>
+                    </div>
+                    <div className="w-14 h-14 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-all duration-300">
                       <service.icon className="w-7 h-7 text-primary" />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-4 mb-2">
-                        <h3 className="font-display text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        {service.highlight && (
-                          <span className="shrink-0 text-[10px] uppercase tracking-widest text-primary bg-primary/10 px-2 py-0.5 rounded-full font-medium">Popular</span>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Regular Services — Staggered Grid */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(219,36,36,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(219,36,36,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        <div className="relative z-10 container mx-auto px-4">
+          {/* Row 1: 3 columns */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-6">
+            {services.filter(s => !s.highlight).slice(0, 3).map((service, i) => (
+              <ScrollReveal key={service.title} delay={i * 0.06}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
+                  <div className={`h-1.5 ${i === 0 ? 'bg-gradient-to-r from-primary/60 via-primary/30 to-transparent' : i === 1 ? 'bg-gradient-to-r from-transparent via-primary/40 to-transparent' : 'bg-gradient-to-r from-transparent via-primary/30 to-primary/60'}`} />
+                  <div className="p-5">
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-300">
+                      <service.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="font-display text-sm font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-relaxed">{service.description}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Row 2: 2 wider columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {services.filter(s => !s.highlight).slice(3).map((service, i) => (
+              <ScrollReveal key={service.title} delay={(i + 3) * 0.06}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
+                  <div className="flex items-start gap-5 p-6">
+                    <div className="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 border border-primary/20 flex items-center justify-center group-hover:from-primary/20 group-hover:to-primary/10 transition-all duration-300">
+                      <service.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-sm font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{service.description}</p>
                     </div>
                   </div>
                 </div>

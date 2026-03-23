@@ -79,34 +79,89 @@ const CarCareDetailing = () => {
         </div>
       </section>
 
-      {/* Services — Bento grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Services — True Bento Grid */}
+      <section className="py-20 relative">
+        {/* Subtle radial gradient background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(219,36,36,0.06),transparent)]" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal>
-            <div className="text-center mb-14">
+            <div className="max-w-2xl mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">What We Offer</p>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-4">Our Detailing Services</h2>
-              <div className="gradient-line max-w-[120px] mx-auto" />
+              <div className="gradient-line max-w-[120px]" />
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
-            {services.map((service, i) => (
-              <ScrollReveal key={service.title} delay={i * 0.05}>
-                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 h-full overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="flex gap-4">
-                    <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
-                      <service.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-display text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
-                    </div>
+          {/* Bento Grid — mixed sizes */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            {services.map((service, i) => {
+              const isLarge = i === 0 || i === 3;
+              const isTall = i === 1 || i === 6;
+
+              return (
+                <ScrollReveal key={service.title} delay={i * 0.04}>
+                  <div className={`group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.15)] ${isLarge ? 'md:col-span-2' : ''} ${isTall ? 'md:row-span-2' : ''}`}>
+                    {isLarge ? (
+                      /* Wide card — horizontal layout with image placeholder */
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 h-full">
+                        <div className="relative h-[200px] sm:h-full min-h-[200px] bg-gradient-to-br from-primary/8 via-card to-card/60 border-b sm:border-b-0 sm:border-r border-border/30 flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(219,36,36,0.08),transparent_60%)]" />
+                          <div className="text-center relative z-10">
+                            <service.icon className="w-12 h-12 text-primary/20 mx-auto mb-2" />
+                            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
+                          </div>
+                        </div>
+                        <div className="p-6 flex flex-col justify-center">
+                          <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-300">
+                            <service.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <h3 className="font-display text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                        </div>
+                      </div>
+                    ) : isTall ? (
+                      /* Tall card — vertical with large image area */
+                      <>
+                        <div className="relative h-[240px] bg-gradient-to-b from-primary/8 via-card to-card/60 border-b border-border/30 flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(219,36,36,0.08),transparent_60%)]" />
+                          <div className="text-center relative z-10">
+                            <service.icon className="w-14 h-14 text-primary/15 mx-auto mb-2" />
+                            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
+                          </div>
+                        </div>
+                        <div className="p-6">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-all duration-300">
+                            <service.icon className="w-5 h-5 text-primary" />
+                          </div>
+                          <h3 className="font-display text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                        </div>
+                      </>
+                    ) : (
+                      /* Standard card */
+                      <>
+                        <div className="relative h-[140px] bg-gradient-to-br from-primary/5 via-card/80 to-card/50 border-b border-border/30 flex items-center justify-center overflow-hidden">
+                          <div className="text-center">
+                            <service.icon className="w-8 h-8 text-primary/20 mx-auto mb-1" />
+                            <span className="text-[9px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
+                          </div>
+                        </div>
+                        <div className="p-5">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/15 transition-all duration-300">
+                              <service.icon className="w-4 h-4 text-primary" />
+                            </div>
+                            <h3 className="font-display text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                          </div>
+                          <p className="text-xs text-muted-foreground leading-relaxed">{service.description}</p>
+                        </div>
+                      </>
+                    )}
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import Grainient from "@/components/Grainient";
+import Hyperspeed from "@/components/Hyperspeed";
 import { Wrench, Droplets, Disc, Gauge, Cog, RotateCcw, Cpu, ThermometerSun, Fuel, Wind, Calendar, ArrowRight, Clock, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -80,9 +81,56 @@ const MechanicalMaintenance = () => {
         </div>
       </section>
 
-      {/* Services — Numbered cards in 3-col */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
+      {/* Hyperspeed Accent Band */}
+      <section className="relative h-[120px] md:h-[160px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Hyperspeed effectOptions={{
+            distortion: 'turbulentDistortion',
+            length: 400,
+            roadWidth: 10,
+            islandWidth: 2,
+            lanesPerRoad: 4,
+            fov: 90,
+            fovSpeedUp: 150,
+            speedUp: 2,
+            carLightsFade: 0.4,
+            totalSideLightSticks: 20,
+            lightPairsPerRoadWay: 40,
+            shoulderLinesWidthPercentage: 0.05,
+            brokenLinesWidthPercentage: 0.1,
+            brokenLinesLengthPercentage: 0.5,
+            lightStickWidth: [0.12, 0.5] as [number, number],
+            lightStickHeight: [1.3, 1.7] as [number, number],
+            movingAwaySpeed: [60, 80] as [number, number],
+            movingCloserSpeed: [-120, -160] as [number, number],
+            carLightsLength: [400 * 0.03, 400 * 0.2] as [number, number],
+            carLightsRadius: [0.05, 0.14] as [number, number],
+            carWidthPercentage: [0.3, 0.5] as [number, number],
+            carShiftX: [-0.8, 0.8] as [number, number],
+            carFloorSeparation: [0, 5] as [number, number],
+            colors: {
+              roadColor: 0x080808,
+              islandColor: 0x0a0a0a,
+              background: 0x000000,
+              shoulderLines: 0x131313,
+              brokenLines: 0x131313,
+              leftCars: [0xDB2424, 0x8B1515, 0xFF4444],
+              rightCars: [0xDB2424, 0x8B1515, 0xFF4444],
+              sticks: 0xDB2424,
+            },
+          }} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <p className="font-display text-lg md:text-xl font-bold text-foreground/80 tracking-widest uppercase">Precision Engineering</p>
+        </div>
+      </section>
+
+      {/* Services — Featured Big + Compact Grid */}
+      <section className="py-20 relative">
+        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(219,36,36,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(219,36,36,0.5) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal>
             <div className="text-center mb-14">
               <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-3">Comprehensive Care</p>
@@ -91,19 +139,45 @@ const MechanicalMaintenance = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {services.map((service, i) => (
+          {/* Top row: 3 featured services as large cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+            {services.slice(0, 3).map((service, i) => (
+              <ScrollReveal key={service.title} delay={i * 0.1}>
+                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.15)]">
+                  <div className="relative h-[180px] bg-gradient-to-br from-primary/8 via-card to-card/60 border-b border-border/30 flex items-center justify-center overflow-hidden">
+                    <div className="absolute top-4 left-4 font-display text-5xl font-bold text-primary/8 select-none">{String(i + 1).padStart(2, '0')}</div>
+                    <div className="text-center relative z-10">
+                      <service.icon className="w-12 h-12 text-primary/20 mx-auto mb-2" />
+                      <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-all duration-300">
+                      <service.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <h3 className="font-display text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Bottom: compact 3-col grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+            {services.slice(3).map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 0.04}>
-                <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-xl p-6 h-full overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_30px_-5px_rgba(219,36,36,0.12)]">
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="group relative bg-card/60 backdrop-blur-sm border border-border/80 rounded-xl p-5 h-full overflow-hidden transition-all duration-500 hover:border-primary/30 hover:bg-card/80">
                   <div className="flex items-start gap-4">
-                    <span className="font-display text-3xl font-bold text-primary/15 leading-none select-none">{String(i + 1).padStart(2, '0')}</span>
-                    <div>
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-all duration-300">
-                        <service.icon className="w-5 h-5 text-primary" />
+                    <div className="relative shrink-0">
+                      <span className="font-display text-2xl font-bold text-primary/10 leading-none select-none absolute -top-1 -left-1">{String(i + 4).padStart(2, '0')}</span>
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center mt-3 ml-3 group-hover:bg-primary/15 transition-all duration-300">
+                        <service.icon className="w-4 h-4 text-primary" />
                       </div>
-                      <h3 className="font-display text-sm font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{service.description}</p>
+                    </div>
+                    <div className="pt-1">
+                      <h3 className="font-display text-sm font-semibold text-foreground mb-1.5 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">{service.description}</p>
                     </div>
                   </div>
                 </div>
