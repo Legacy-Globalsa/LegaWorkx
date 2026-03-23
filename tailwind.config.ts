@@ -113,6 +113,10 @@ export default {
           from: { opacity: "0", transform: "rotate(-3deg) scale(0.96)" },
           to: { opacity: "1", transform: "rotate(0deg) scale(1)" },
         },
+        "marquee": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -125,6 +129,7 @@ export default {
         "float": "float 4s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
         "rotate-in": "rotate-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "marquee": "marquee 35s linear infinite",
       },
     },
   },
