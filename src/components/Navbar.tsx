@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/legaworkx-logo.png";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -26,8 +27,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-        <a href="#hero" className="font-display text-xl font-bold tracking-widest text-primary text-glow-teal">
-          LEGAWORKX
+        <a href="#hero" className="flex items-center gap-3">
+          <img src={logo} alt="LEGAWORKX Logo" className="h-10 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-8">
@@ -35,7 +36,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300 tracking-wide uppercase"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-300 tracking-wide uppercase relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               {link.label}
             </a>
