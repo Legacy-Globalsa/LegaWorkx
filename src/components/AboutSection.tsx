@@ -47,7 +47,7 @@ const AboutSection = () => {
             <ScrollReveal direction="right" delay={0.25}>
               <div className="flex gap-4">
                 <div className="mt-1 shrink-0">
-                  <Target className="w-5 h-5 text-neon-blue" />
+                  <Target className="w-5 h-5 text-brand-gray" />
                 </div>
                 <div>
                   <h3 className="font-display text-sm font-semibold text-foreground mb-2 tracking-wider uppercase">Mission</h3>

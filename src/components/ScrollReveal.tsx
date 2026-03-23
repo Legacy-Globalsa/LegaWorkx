@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
-  direction?: "up" | "left" | "right" | "fade";
+  direction?: "up" | "left" | "right" | "fade" | "scale" | "rotate";
   delay?: number;
   className?: string;
 }
@@ -32,6 +32,8 @@ const ScrollReveal = ({ children, direction = "up", delay = 0, className = "" }:
     left: "animate-slide-left",
     right: "animate-slide-right",
     fade: "animate-fade-in",
+    scale: "animate-scale-in",
+    rotate: "animate-rotate-in",
   }[direction];
 
   return (

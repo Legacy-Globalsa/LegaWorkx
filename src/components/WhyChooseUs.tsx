@@ -45,9 +45,9 @@ const WhyChooseUs = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
           {reasons.map((reason, i) => (
-            <ScrollReveal key={reason.title} delay={i * 0.08}>
-              <div className="bg-card border border-border rounded-lg p-6 text-center card-hover-glow h-full flex flex-col items-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+            <ScrollReveal key={reason.title} delay={i * 0.1} direction="scale">
+              <div className="bg-card border border-border rounded-lg p-6 text-center card-hover-glow h-full flex flex-col items-center group">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
                   <reason.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-display text-sm font-semibold text-foreground mb-2 tracking-wide">
