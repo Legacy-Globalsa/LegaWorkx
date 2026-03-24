@@ -7,6 +7,11 @@ import { Wrench, Droplets, Disc, Gauge, Cog, RotateCcw, Cpu, ThermometerSun, Fue
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import carMechanical from "@/assets/car-mechanical.png";
+import mechOilChange from "@/assets/mech-oil-change.jpg";
+import mechBattery from "@/assets/mech-battery.jpg";
+import mechBrakes from "@/assets/mech-brakes.jpg";
+
+const featuredImages = [mechOilChange, mechBattery, mechBrakes];
 
 const services = [
   { icon: Droplets, title: "Oil Change & Fluid Replacement", description: "Regular oil changes with premium synthetic or conventional oils, plus comprehensive fluid checks including coolant, brake fluid, power steering, and transmission fluid." },
@@ -144,12 +149,10 @@ const MechanicalMaintenance = () => {
             {services.slice(0, 3).map((service, i) => (
               <ScrollReveal key={service.title} delay={i * 0.1}>
                 <div className="group relative bg-card/80 backdrop-blur-sm border border-border rounded-2xl overflow-hidden h-full transition-all duration-500 hover:border-primary/30 hover:shadow-[0_0_40px_-5px_rgba(219,36,36,0.15)]">
-                  <div className="relative h-[180px] bg-gradient-to-br from-primary/8 via-card to-card/60 border-b border-border/30 flex items-center justify-center overflow-hidden">
-                    <div className="absolute top-4 left-4 font-display text-5xl font-bold text-primary/8 select-none">{String(i + 1).padStart(2, '0')}</div>
-                    <div className="text-center relative z-10">
-                      <service.icon className="w-12 h-12 text-primary/20 mx-auto mb-2" />
-                      <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
-                    </div>
+                  <div className="relative h-[180px] border-b border-border/30 overflow-hidden">
+                    <img src={featuredImages[i]} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+                    <div className="absolute top-4 left-4 font-display text-5xl font-bold text-white/15 select-none z-10">{String(i + 1).padStart(2, '0')}</div>
                   </div>
                   <div className="p-6">
                     <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-all duration-300">

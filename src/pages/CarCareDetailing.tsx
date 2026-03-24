@@ -6,6 +6,22 @@ import { Sparkles, Droplets, Shield, Sun, Car, Wind, Gauge, Sofa, Gem, SprayCan,
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import carDetailing from "@/assets/car-detailing.png";
+import detailWashWax from "@/assets/detail-wash-wax.jpg";
+import detailPaintProtection from "@/assets/detail-paint-protection.jpg";
+import detailPolishing from "@/assets/detail-polishing.jpg";
+import detailHeadlight from "@/assets/detail-headlight.jpg";
+import detailWindowTint from "@/assets/detail-window-tint.jpg";
+import detailTireRim from "@/assets/detail-tire-rim.jpg";
+import detailEngineBay from "@/assets/detail-engine-bay.jpg";
+import detailInterior from "@/assets/detail-interior.jpg";
+import detailLeather from "@/assets/detail-leather.jpg";
+import detailSanitize from "@/assets/detail-sanitize.jpg";
+
+const serviceImages = [
+  detailWashWax, detailPaintProtection, detailPolishing, detailHeadlight,
+  detailWindowTint, detailTireRim, detailEngineBay, detailInterior,
+  detailLeather, detailSanitize,
+];
 
 const services = [
   { icon: Droplets, title: "Full Exterior Wash & Wax", description: "A thorough hand wash followed by premium wax application to protect your vehicle's paint and deliver a showroom-quality shine that lasts." },
@@ -105,12 +121,9 @@ const CarCareDetailing = () => {
                     {isLarge ? (
                       /* Wide card — horizontal layout with image placeholder */
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 h-full">
-                        <div className="relative h-[200px] sm:h-full min-h-[200px] bg-gradient-to-br from-primary/8 via-card to-card/60 border-b sm:border-b-0 sm:border-r border-border/30 flex items-center justify-center overflow-hidden">
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(219,36,36,0.08),transparent_60%)]" />
-                          <div className="text-center relative z-10">
-                            <service.icon className="w-12 h-12 text-primary/20 mx-auto mb-2" />
-                            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
-                          </div>
+                        <div className="relative h-[200px] sm:h-full min-h-[200px] border-b sm:border-b-0 sm:border-r border-border/30 overflow-hidden">
+                          <img src={serviceImages[i]} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/30" />
                         </div>
                         <div className="p-6 flex flex-col justify-center">
                           <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-all duration-300">
@@ -123,12 +136,9 @@ const CarCareDetailing = () => {
                     ) : isTall ? (
                       /* Tall card — vertical with large image area */
                       <>
-                        <div className="relative h-[240px] bg-gradient-to-b from-primary/8 via-card to-card/60 border-b border-border/30 flex items-center justify-center overflow-hidden">
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(219,36,36,0.08),transparent_60%)]" />
-                          <div className="text-center relative z-10">
-                            <service.icon className="w-14 h-14 text-primary/15 mx-auto mb-2" />
-                            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
-                          </div>
+                        <div className="relative h-[240px] border-b border-border/30 overflow-hidden">
+                          <img src={serviceImages[i]} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
                         </div>
                         <div className="p-6">
                           <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-all duration-300">
@@ -141,11 +151,9 @@ const CarCareDetailing = () => {
                     ) : (
                       /* Standard card */
                       <>
-                        <div className="relative h-[140px] bg-gradient-to-br from-primary/5 via-card/80 to-card/50 border-b border-border/30 flex items-center justify-center overflow-hidden">
-                          <div className="text-center">
-                            <service.icon className="w-8 h-8 text-primary/20 mx-auto mb-1" />
-                            <span className="text-[9px] text-muted-foreground/40 uppercase tracking-widest">Add Image</span>
-                          </div>
+                        <div className="relative h-[140px] border-b border-border/30 overflow-hidden">
+                          <img src={serviceImages[i]} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
                         </div>
                         <div className="p-5">
                           <div className="flex items-center gap-3 mb-3">
